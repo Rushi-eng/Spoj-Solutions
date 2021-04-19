@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+#define  Boost ios_base :: sync_with_stdio (0) ; cin.tie(0) ; cout.tie(0) ;
+#define  int  long long
+using namespace std ;
+
+int xs = 0 , ys = 0 , xd = 0 , yd = 0 ;
+
+int cb[9][9] ;
+int vis [9][9] ;
+
+int xc[] = {-2,-1,+1,+2,+2,+1,-1,-2} ;
+int yc[] = {+1,+2,+2,+1,-1,-2,-2,-1} ;
+
+bool valid ( int x , int y ) {
+    if ( x < 1 || x > 8 || y < 1 || y > 8 || vis[x][y] == 1 )
+        return false ;
+
+    return 1 ;
+}
+
+int bfs ( int x , int y ) {
+    cb[x][y] = 0 ;
+    queue <pair<int,int>> q ;
+    q.push({x,y}) ;
+
+    while ( not q.empty() ) {
+        int x1 = q.front().first ;
+        int y1 = q.front().second ;
+        q.pop() ;
+        for ( int i = 0 ; i < 8 ; i++ ) {
+            int nx = x1 + xc[i] ;
+            int ny = y1 + yc[i] ;
+            if ( valid(nx,ny) ) {
+                cb[nx][ny] = cb[x1][y1] + 1 ;  
+                q.push({nx,ny}) ;
+                if ( xd == nx and yd == ny ) 
+                    return cb[nx][ny] ;
+            }
+        }
+    }
+}
+
+void Go () {
+
+    memset(cb,0,sizeof(cb)) ;
+    memset(vis,0,sizeof(vis)) ;
+
+    char a , b , c , d ;
+    cin >> a >> b >> c >> d ;
+    ys = a-'a'+1 ;
+    xs = b-'0' ;
+    yd = c-'a'+1 ;
+    xd = d-'0' ;
+
+    if ( xd == xs and yd == ys ) {
+        cout << "0\n" ;
+        return ;
+    }
+    cout << bfs(xs,ys) << endl ;
+}
+
+int32_t main () {
+    Boost 
+
+    int t = 1 ;
+    cin >> t ;
+    while ( t-- ) {
+        Go() ;
+    }
+   return 0 ;
+}
